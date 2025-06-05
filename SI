@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía: Conexión Ethernet Windows-Linux</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+        }
+        h1 {
+            margin: 0;
+            font-size: 28px;
+        }
+        h2 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 5px;
+            margin-top: 30px;
+        }
+        .authors {
+            font-style: italic;
+            margin: 10px 0;
+        }
+        .materials {
+            background-color: #e8f4fc;
+            padding: 15px;
+            border-left: 4px solid #3498db;
+            margin: 20px 0;
+        }
+        .step {
+            background-color: white;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .image-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .conclusion {
+            background-color: #e8f8f0;
+            padding: 15px;
+            border-left: 4px solid #2ecc71;
+            margin: 20px 0;
+        }
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Configuración de Conexión Ethernet entre Windows y Linux</h1>
+        <div class="authors">
+            <p>Sebastián Fandiño Parra & Daniel Alejandro Arciniegas Celín</p>
+            <p>Docente: Juan Carlos Borrero Castellanos</p>
+            <p>Comunicación de Datos - Ingeniería de Sistemas - Uniciencia - 2025</p>
+        </div>
+    </header>
+
+    <section>
+        <h2>Introducción</h2>
+        <p>Este documento detalla el proceso de configuración de una conexión Ethernet entre dos equipos (uno con Windows y otro con Linux Ubuntu) y la posterior compartición de archivos entre ambos sistemas operativos.</p>
+        <p>El objetivo principal fue establecer una comunicación estable entre los dispositivos, configurando direcciones IP manuales.</p>
+    </section>
+
+    <section>
+        <h2>Materiales Utilizados</h2>
+        <div class="materials">
+            <ul>
+                <li>Dos computadoras: una con Windows 10/11 y otra con Ubuntu Linux.</li>
+                <li>Cable Ethernet cruzado (o un switch/hub en caso de usar cable directo).</li>
+            </ul>
+        </div>
+    </section>
+
+    <section>
+        <h2>Paso a Paso</h2>
+
+        <div class="step">
+            <h3>Configuración de IP estática en Windows</h3>
+            <ol>
+                <li>Ir a Panel de Control > Redes e Internet > Centro de redes y recursos compartidos > Cambiar configuración del adaptador.</li>
+                <li>Seleccionar la conexión Ethernet, hacer clic derecho y elegir "Propiedades > Protocolo de Internet versión 4 (TCP/IPv4)".</li>
+                <li>Asignar una IP manual (ej: 192.168.1.1) con máscara 255.255.255.0. En nuestro caso usamos 128.168.1.15 y 128.168.1.11 debido a que usamos clase B para este ejercicio.</li>
+            </ol>
+            <div class="image-container">
+                <img src="windows_ip_config.png" alt="Configuración de IP en Windows">
+                <p>Figura 1: Configuración de IP estática en Windows</p>
+            </div>
+        </div>
+
+        <div class="step">
+            <h3>Habilitar compartición de archivos en Windows</h3>
+            <ol>
+                <li>Ir a Configuración > Red e Internet > Opciones de uso compartido.</li>
+                <li>Activar "Detectar redes", "Compartir archivos e impresoras" y "Compartir con permisos de lectura/escritura".</li>
+            </ol>
+        </div>
+
+        <div class="step">
+            <h3>Configuración en Ubuntu Linux</h3>
+            <p>Desde nuestro Ubuntu (Linux) debemos seguir un paso a paso para poder compartir archivos con nuestro dispositivo Windows. En nuestro caso primero creamos la carpeta en Windows para tener su ruta de acceso, con ello logramos que, al momento de crear la carpeta compartida en Linux y la configuremos tengamos la certeza que cualquier cosa que hagamos en cada una se verá reflejada en el otro dispositivo.</p>
+            <div class="image-container">
+                <img src="linux_share_config.png" alt="Configuración de compartición en Linux">
+                <p>Figura 2: Configuración de compartición en Ubuntu Linux</p>
+            </div>
+        </div>
+
+        <div class="step">
+            <h3>Pruebas de conectividad</h3>
+            <div class="image-container">
+                <img src="ping_test.png" alt="Prueba de ping">
+                <p>Figura 3: Prueba de ping exitosa entre los dispositivos</p>
+            </div>
+            <p>Esta prueba se realizó con el fin de establecer una conexión ethernet para poder salir a navegar, igualmente para verificar que podemos compartir archivos en los 2 dispositivos.</p>
+        </div>
+    </section>
+
+    <section>
+        <h2>Conclusiones</h2>
+        <div class="conclusion">
+            <p>La configuración de una red Ethernet directa entre Windows y Linux (Ubuntu) es un proceso sencillo, pero requiere atención en la asignación de direcciones IP y los permisos de compartición.</p>
+            <p>Este método es útil en entornos donde se necesita transferir archivos de forma rápida y segura sin depender de infraestructura de red adicional.</p>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2025 - Uniciencia - Ingeniería de Sistemas</p>
+        <p>Documento elaborado por Sebastián Fandiño Parra & Daniel Alejandro Arciniegas Celín</p>
+    </footer>
+</body>
+</html>
